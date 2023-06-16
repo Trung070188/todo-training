@@ -5,8 +5,10 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Http;
 
 class UserController extends Controller
 {
@@ -26,7 +28,6 @@ class UserController extends Controller
         $input = $request->all();
         $token = '';
         $validate = Validator::make($input, [
-            'name' => 'required',
             'email' => 'required|email',
             'password' => 'required'
             ]);
@@ -35,18 +36,22 @@ class UserController extends Controller
             return response()->json(['error' => $validate->errors()], 422);
         }
 
-        if (Auth::attempt($input)) {
-            $user = Auth::user();
-            $token = $user->createToken('MyToken')->accessToken;
-      }
+        $response = Http::asForm()->post('http://127.0.0.1:8000/oauth/token', [
+            'grant_type' => 'password',
+            'client_id' => '996c365b-ee34-4810-855e-0f3ed4999732',
+            'client_secret' => 'QuAoePzvHy59GeQcUWwfVRQJvVctM6lMjQ9TpmCV',
+            'username' => $input['email'],
+            'password' => $input['password'],
+            'scope' => '',
+        ]);
 
-        return response()->json(['token' => $token]);
+        return response()->json($response->json());
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show()
     {
         $user = Auth::guard('api')->user();
         return response()->json(['user' => $user]);
