@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\Hash;
 
 class UserRepository implements UserRepositoryInterface
 {
+    public function  show($id): User
+    {
+        return User::find($id);
+    }
     public function create(array $data): User
     {
        return User::create($data);

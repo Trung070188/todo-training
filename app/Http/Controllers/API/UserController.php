@@ -7,6 +7,7 @@ use App\Repositories\Users\User;
 use App\Repositories\Users\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Psr\Http\Message\ServerRequestInterface;
@@ -25,7 +26,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        if(Gate::allows('show'))
+        {
+            $users = User::query()->orderBy('id','desc')->get();
+            return response()->json(['users' => $users]);
+        }
+        else {
+            return response()->json(['message' => 'Authorization failed']);
+        }
     }
 
     /**
@@ -98,10 +106,20 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show($id)
     {
-        $user = Auth::guard('api')->user();
-        return response()->json(['user' => $user]);
+
+        if(Gate::allows('show'))
+        {
+           $user =  $this->userRepository->show($id);
+
+            return response()->json(['user' => $user]);
+
+        }
+        else{
+            return response()->json(['message' => 'Authorization failed.'], 405);
+
+        }
     }
 
     /**
@@ -117,10 +135,16 @@ class UserController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $input = $request->all();
-        $user = $this->userRepository->update($id, $input);
+        $targetUser = User::query()->where('id', $id)->first();
 
-        return response()->json(['user' => $user]);
+        if (Gate::allows('update', [$targetUser])) {
+            $input = $request->all();
+            $user = $this->userRepository->update($id, $input);
+
+            return response()->json(['user' => $user]);
+        } else {
+            return response()->json(['message' => 'Authorization failed.'], 405);
+        }
 
     }
 
@@ -129,8 +153,15 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = Auth::guard('api')->user();
-        $this->userRepository->delete($id);
-        return response()->json(['message' => 'Ok'], 200);
+
+        $targetUser = User::query()->where('id', $id)->first();
+
+        if (Gate::allows('delete', [$targetUser])) {
+
+            $this->userRepository->delete($id);
+            return response()->json(['message' => 'Ok']);
+        } else {
+            return response()->json(['message' => 'Authorization failed.'], 405);
+        }
     }
 }
