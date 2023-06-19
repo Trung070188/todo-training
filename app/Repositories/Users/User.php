@@ -52,16 +52,18 @@ class User extends Authenticatable
         $user = $this->user_roles->pluck('role_id');
         return $user;
     }
-    public function checkRole($array, $roleValue)
+
+
+    public function isAdmin()
     {
-        foreach ($array as $role)
+        foreach ($this->queryUser() as $role)
         {
-            if($role == $roleValue)
+            if($role == Roles::ADMIN->value )
             {
                 return true;
             }
         }
-        return false;
+        return  false;
 
     }
 

@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Repositories\Users\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Hash;
 
 class UserRequest extends FormRequest
 {
@@ -13,7 +14,11 @@ class UserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Gate::allows('create', User::class);
+        $permission = [
+          'create' => Gate::allows('create', User::class),
+          'update' => Gate::allows('update', User::class)
+        ];
+        return $permission['create'] && $permission['update'];
     }
 
     /**
@@ -32,10 +37,10 @@ class UserRequest extends FormRequest
     public function createUser()
     {
         $input = $this->validated();
-
         return [
             'name' => $input['name'],
             'email' => $input['email'],
+            'password' => Hash::make($input['password'])
         ];
     }
 }

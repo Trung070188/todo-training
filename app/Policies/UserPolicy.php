@@ -10,7 +10,7 @@ class UserPolicy
     public function view(User $user): bool
     {
 
-        if ($user->checkRole($user->queryUser(), Roles::ADMIN->value)) {
+        if ($user->isAdmin()) {
             return true;
         }
 
@@ -19,7 +19,7 @@ class UserPolicy
     public function show(User $user): bool
     {
 
-        if ($user->checkRole($user->queryUser(), Roles::ADMIN->value)) {
+        if ($user->isAdmin()) {
             return true;
         }
 
@@ -31,7 +31,7 @@ class UserPolicy
      */
     public function create(User $user): bool
     {
-        if ($user->checkRole($user->queryUser(), Roles::ADMIN->value)) {
+        if ($user->isAdmin()) {
             return true;
         }
 
@@ -44,7 +44,7 @@ class UserPolicy
     public function update(User $user): bool
     {
 
-        if ($user->checkRole($user->queryUser(), Roles::ADMIN->value) || $user->id === $user->id) {
+        if ($user->isAdmin() || $user->id === $user->id) {
             return true;
         }
 
@@ -56,7 +56,7 @@ class UserPolicy
      */
     public function delete(User $user): bool
     {
-        if ($user->checkRole($user->queryUser(), Roles::ADMIN->value) && $user->role !== $user->role) {
+        if ($user->isAdmin() && $user->role !== $user->role) {
             return true;
         }
 

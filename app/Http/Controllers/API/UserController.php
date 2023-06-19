@@ -96,13 +96,13 @@ class UserController extends Controller
     {
         try {
             $dataUser = $request->createUser();
+            $this->validate($request, $this->validationRulesRegister());
             $user = $this->userRepository->create($dataUser);
             return new UserResource($user);
         }
         catch (ValidationException $validationException)
         {
-            return response()->json(['message' => $validationException->getMessage()], 422);
-
+            return response()->json(['message' => $validationException->getMessage()],422);
         }
         catch (\Exception $e)
         {
@@ -115,16 +115,9 @@ class UserController extends Controller
     public function register(Request $request)
     {
         try {
-            $input = $request->all();
-
+            $dataUser = $request->createUser();
             $this->validate($request, $this->validationRulesRegister());
-
-            $user = $this->userRepository->create([
-                'name' => $input['name'],
-                'email' => $input['email'],
-                'password' => $input['password']
-            ]);
-
+            $user = $this->userRepository->create($dataUser);
             return new UserResource($user);
 
         }
