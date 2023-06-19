@@ -14,7 +14,7 @@ trait FilterTrait
     public function scopeEmail($query, $email)
     {
         if ($email) {
-            return $query->where('name', 'like', "%${email}%");
+            return $query->where('email', 'like', "%${email}%");
         }
         return $query;
     }
