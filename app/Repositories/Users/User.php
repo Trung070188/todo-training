@@ -47,4 +47,22 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserRoles::class,'user_id');
     }
+    public function queryUser()
+    {
+        $user = $this->user_roles->pluck('role_id');
+        return $user;
+    }
+    public function checkRole($array, $roleValue)
+    {
+        foreach ($array as $role)
+        {
+            if($role == $roleValue)
+            {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
 }

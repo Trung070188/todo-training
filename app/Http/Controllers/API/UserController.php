@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
+use App\Http\Resources\UserResource;
 use App\Repositories\Users\User;
 use App\Repositories\Users\UserRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Psr\Http\Message\ServerRequestInterface;
@@ -91,22 +92,12 @@ class UserController extends Controller
             'password' => 'required'
         ];
     }
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         try {
-            $this->authorize('create', User::class);
-            $input = $request->all();
-
-            $this->validate($request, $this->validationRulesRegister());
-
-            $user = $this->userRepository->create([
-                'name' => $input['name'],
-                'email' => $input['email'],
-                'password' => Hash::make($input['password'])
-            ]);
-
-            return response()->json(['user' => $user]);
-
+            $dataUser = $request->createUser();
+            $user = $this->userRepository->create($dataUser);
+            return new UserResource($user);
         }
         catch (ValidationException $validationException)
         {
@@ -134,7 +125,7 @@ class UserController extends Controller
                 'password' => $input['password']
             ]);
 
-            return response()->json(['user' => $user]);
+            return new UserResource($user);
 
         }
         catch (ValidationException $validationException)
@@ -159,7 +150,7 @@ class UserController extends Controller
 
             $user =  $this->userRepository->show($id);
 
-            return response()->json(['user' => $user]);
+            return new UserResource($user);
 
 
         }
@@ -189,7 +180,7 @@ class UserController extends Controller
 
             $user = $this->userRepository->update($id, $input);
 
-            return response()->json(['user' => $user]);
+            return new UserResource($user);
         }
         catch (ValidationException $validationException)
         {

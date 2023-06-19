@@ -7,30 +7,10 @@ use App\Repositories\Users\Enums\Roles;
 
 class UserPolicy
 {
-    public function checkRole($array, $roleValue)
-    {
-        foreach ($array as $role)
-        {
-            if($role == $roleValue)
-            {
-                return true;
-            }
-        }
-        return false;
-
-
-    }
-    public function queryUser($user)
-    {
-        $user = $user->user_roles()->pluck('role_id');
-        return $user;
-    }
-
     public function view(User $user): bool
     {
 
-
-        if ($this->checkRole($this->queryUser($user), Roles::ADMIN->value)) {
+        if ($user->checkRole($user->queryUser(), Roles::ADMIN->value)) {
             return true;
         }
 
@@ -39,7 +19,7 @@ class UserPolicy
     public function show(User $user): bool
     {
 
-        if ($this->checkRole($this->queryUser($user), Roles::ADMIN->value)) {
+        if ($user->checkRole($user->queryUser(), Roles::ADMIN->value)) {
             return true;
         }
 
@@ -51,7 +31,7 @@ class UserPolicy
      */
     public function create(User $user): bool
     {
-        if ($this->checkRole($this->queryUser($user), Roles::ADMIN->value)) {
+        if ($user->checkRole($user->queryUser(), Roles::ADMIN->value)) {
             return true;
         }
 
@@ -64,7 +44,7 @@ class UserPolicy
     public function update(User $user): bool
     {
 
-        if ($this->checkRole($this->queryUser($user), Roles::ADMIN->value) || $user->id === $user->id) {
+        if ($user->checkRole($user->queryUser(), Roles::ADMIN->value) || $user->id === $user->id) {
             return true;
         }
 
@@ -76,7 +56,7 @@ class UserPolicy
      */
     public function delete(User $user): bool
     {
-        if ($this->checkRole($this->queryUser($user), Roles::ADMIN->value) && $user->role !== $user->role) {
+        if ($user->checkRole($user->queryUser(), Roles::ADMIN->value) && $user->role !== $user->role) {
             return true;
         }
 
