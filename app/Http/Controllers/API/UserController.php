@@ -3,20 +3,23 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Policies\UserPolicy;
 use App\Repositories\Users\User;
+use App\Repositories\Users\UserRepository;
 use App\Repositories\Users\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use mysql_xdevapi\Exception;
 use Psr\Http\Message\ServerRequestInterface;
 
 class UserController extends Controller
 {
     private $userRepository;
 
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
     }
@@ -24,16 +27,23 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        if(Gate::allows('show'))
+        try
         {
-            $users = User::query()->orderBy('id','desc')->get();
+            $this->authorize('view', User::class);
+            $query = $request->query();
+            $params = array_merge($query);
+            $users = $this->userRepository->getByQuery($params);
             return response()->json(['users' => $users]);
+
         }
-        else {
+        catch (\Exception $e)
+        {
             return response()->json(['message' => 'Authorization failed']);
+
         }
+
     }
 
     /**
@@ -85,19 +95,52 @@ class UserController extends Controller
             'password' => 'required'
         ];
     }
+    public function store(Request $request)
+    {
+        try {
+            $this->authorize('create', User::class);
+            $input = $request->all();
+
+            $this->validate($request, $this->validationRulesRegister());
+
+            $user = $this->userRepository->create([
+                'name' => $input['name'],
+                'email' => $input['email'],
+                'password' => Hash::make($input['password'])
+            ]);
+
+            return response()->json(['user' => $user]);
+
+        }
+        catch (\Exception $e)
+        {
+            return response()->json(['message' => 'Authorization failed.'], 405);
+
+        }
+
+    }
+
     public function register(Request $request)
     {
-        $input = $request->all();
+        try {
+            $input = $request->all();
 
-        $this->validate($request, $this->validationRulesRegister());
+            $this->validate($request, $this->validationRulesRegister());
 
-        $user = $this->userRepository->create([
-           'name' => $input['name'],
-           'email' => $input['email'],
-           'password' => Hash::make($input['password'])
-        ]);
+            $user = $this->userRepository->create([
+                'name' => $input['name'],
+                'email' => $input['email'],
+                'password' => Hash::make($input['password'])
+            ]);
 
-        return response()->json(['user' => $user]);
+            return response()->json(['user' => $user]);
+
+        }
+        catch (\Exception $e)
+        {
+            return response()->json(['message' => $e->getMessage()], 405);
+
+        }
 
     }
 
@@ -108,18 +151,20 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        try {
+            $this->authorize('show', User::class);
 
-        if(Gate::allows('show'))
-        {
-           $user =  $this->userRepository->show($id);
+            $user =  $this->userRepository->show($id);
 
             return response()->json(['user' => $user]);
 
-        }
-        else{
-            return response()->json(['message' => 'Authorization failed.'], 405);
 
         }
+        catch (\Exception $e)
+        {
+            return response()->json(['message' => 'Authorization failed.'], 405);
+        }
+
     }
 
     /**
@@ -135,17 +180,18 @@ class UserController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $targetUser = User::query()->where('id', $id)->first();
-
-        if (Gate::allows('update', [$targetUser])) {
+        try {
+            $this->authorize('update', User::class);
             $input = $request->all();
             $user = $this->userRepository->update($id, $input);
 
             return response()->json(['user' => $user]);
-        } else {
-            return response()->json(['message' => 'Authorization failed.'], 405);
         }
+        catch (\Exception $e)
+        {
+            return response()->json(['message' => 'Authorization failed.'], 405);
 
+        }
     }
 
     /**
@@ -153,15 +199,16 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-
-        $targetUser = User::query()->where('id', $id)->first();
-
-        if (Gate::allows('delete', [$targetUser])) {
-
+        try {
+            $this->authorize('delete', User::class);
             $this->userRepository->delete($id);
             return response()->json(['message' => 'Ok']);
-        } else {
-            return response()->json(['message' => 'Authorization failed.'], 405);
         }
+        catch (\Exception $e)
+        {
+            return response()->json(['message' => 'Authorization failed.'], 405);
+
+        }
+
     }
 }

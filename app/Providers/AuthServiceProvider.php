@@ -28,9 +28,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('show', [UserPolicy::class, 'show']);
-        Gate::define('update', [UserPolicy::class, 'update']);
-        Gate::define('delete', [UserPolicy::class, 'delete']);
+
+//        Gate::define('show', [UserPolicy::class, 'show']);
+//        Gate::define('update', [UserPolicy::class, 'update']);
+//        Gate::define('delete', [UserPolicy::class, 'delete']);
 
         Passport::tokensExpireIn(now()->addDays(15));
         Passport::refreshTokensExpireIn(now()->addDays(30));

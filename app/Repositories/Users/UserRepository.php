@@ -2,31 +2,14 @@
 namespace App\Repositories\Users;
 
 
-use Illuminate\Support\Facades\Hash;
+use App\Repositories\BaseRepository;
 
-class UserRepository implements UserRepositoryInterface
+class UserRepository extends BaseRepository
 {
-    public function  show($id): User
+    protected $model;
+    public function __construct(User $user)
     {
-        return User::find($id);
-    }
-    public function create(array $data): User
-    {
-       return User::create($data);
-    }
-    public function update($id, array $data): User
-    {
-        $user = User::find($id);
-        $user->fill($data);
-        $user->save();
-        return $user;
-
-    }
-    public function delete($id): User
-    {
-        $user = User::find($id);
-        return $user->delete();
-
+        $this->model = $user;
     }
 
 }
