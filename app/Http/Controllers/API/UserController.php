@@ -3,16 +3,12 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Policies\UserPolicy;
 use App\Repositories\Users\User;
 use App\Repositories\Users\UserRepository;
-use App\Repositories\Users\UserRepositoryInterface;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use mysql_xdevapi\Exception;
+use Illuminate\Validation\ValidationException;
 use Psr\Http\Message\ServerRequestInterface;
 
 class UserController extends Controller
@@ -112,6 +108,11 @@ class UserController extends Controller
             return response()->json(['user' => $user]);
 
         }
+        catch (ValidationException $validationException)
+        {
+            return response()->json(['message' => $validationException->getMessage()], 422);
+
+        }
         catch (\Exception $e)
         {
             return response()->json(['message' => 'Authorization failed.'], 405);
@@ -130,11 +131,15 @@ class UserController extends Controller
             $user = $this->userRepository->create([
                 'name' => $input['name'],
                 'email' => $input['email'],
-                'password' => Hash::make($input['password'])
+                'password' => $input['password']
             ]);
 
             return response()->json(['user' => $user]);
 
+        }
+        catch (ValidationException $validationException)
+        {
+            return response()->json(['message' => $validationException->getMessage()],422);
         }
         catch (\Exception $e)
         {
@@ -143,8 +148,6 @@ class UserController extends Controller
         }
 
     }
-
-
 
     /**
      * Display the specified resource.
@@ -174,8 +177,7 @@ class UserController extends Controller
     protected function validationRulesUpdate(): array
     {
         return [
-            'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'email',
         ];
     }
     public function update(Request $request, $id)
@@ -183,13 +185,19 @@ class UserController extends Controller
         try {
             $this->authorize('update', User::class);
             $input = $request->all();
+            $this->validate($request, $this->validationRulesUpdate());
+
             $user = $this->userRepository->update($id, $input);
 
             return response()->json(['user' => $user]);
         }
+        catch (ValidationException $validationException)
+        {
+            return response()->json(['message' => $validationException->getMessage()], 422);
+        }
         catch (\Exception $e)
         {
-            return response()->json(['message' => 'Authorization failed.'], 405);
+            return response()->json(['message' => 'Authorization failed.']);
 
         }
     }

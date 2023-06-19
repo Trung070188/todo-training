@@ -34,14 +34,15 @@ class BaseRepository
     }
     public function update($id, array $data)
     {
-        $dataUpdate = $this->show($id);
-        $dataUpdate->fill($data);
+        $dataUpdate =  $this->model($id)->fill($data);
         $dataUpdate->save();
         return $dataUpdate;
     }
     public function delete($id)
     {
-        return $this->show($id)->delete();
+
+       return  $this->model($id)->delete();
+
     }
 
     public function getModel()
@@ -67,6 +68,14 @@ class BaseRepository
         }
         $this->reflection = new \ReflectionClass($this->getModel());
         return $this->reflection;
+    }
+    public function model($id)
+    {
+        if (is_a($id, get_class($this->getModel()))) {
+            return $id;
+        } else {
+            return $this->show($id);
+        }
     }
 
 
