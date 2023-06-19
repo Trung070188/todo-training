@@ -2,10 +2,9 @@
 
 namespace App\Repositories\Users;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-
-class UserRoles extends Authenticatable
+class UserRoles extends Model
 {
 
 }
