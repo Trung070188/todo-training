@@ -103,18 +103,19 @@ class User extends Authenticatable
 //        return false;
 //    }
 
-    public function policy(string $action): bool
+    public function policy(string $action, string $model): bool
     {
         $group = $this->setGroup();
-        $policies = config('role');
+        $policies = config('permission');
 
         if (array_key_exists($group, $policies)) {
-            $allowedActions = $policies[$group];
+            $allowedActions = $policies[$group][$model];
             return in_array($action, $allowedActions);
         }
 
         return false;
     }
+
     public function setGroup(): string
     {
         if ($this->isAdmin()) {

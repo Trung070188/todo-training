@@ -8,7 +8,7 @@ class UserPolicy
 {
     public function view(User $user): bool
     {
-        if($user->policy('view'))
+        if($user->policy('view','users'))
         {
             return true;
         }
@@ -16,7 +16,7 @@ class UserPolicy
     }
     public function show(User $user): bool
     {
-        if($user->policy('show'))
+        if($user->policy('show','users'))
         {
             return true;
         }
@@ -28,7 +28,7 @@ class UserPolicy
      */
     public function create(User $user): bool
     {
-        if($user->policy('create'))
+        if($user->policy('create','users'))
         {
             return true;
         }
@@ -40,7 +40,7 @@ class UserPolicy
      */
     public function update(User $user): bool
     {
-        if($user->policy('update'))
+        if($user->policy('update','users'))
         {
             return true;
         }
@@ -52,7 +52,7 @@ class UserPolicy
      */
     public function delete(User $user): bool
     {
-        if($user->policy('delete'))
+        if($user->policy('delete','users'))
         {
             return true;
         }
