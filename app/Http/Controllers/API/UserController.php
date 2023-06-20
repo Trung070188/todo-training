@@ -95,14 +95,10 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         try {
+            $this->authorize('create', User::class);
             $dataUser = $request->createUser();
-            $this->validate($request, $this->validationRulesRegister());
             $user = $this->userRepository->create($dataUser);
             return new UserResource($user);
-        }
-        catch (ValidationException $validationException)
-        {
-            return response()->json(['message' => $validationException->getMessage()],422);
         }
         catch (\Exception $e)
         {
@@ -115,7 +111,7 @@ class UserController extends Controller
     public function register(Request $request)
     {
         try {
-            $dataUser = $request->createUser();
+            $dataUser = $request->all();
             $this->validate($request, $this->validationRulesRegister());
             $user = $this->userRepository->create($dataUser);
             return new UserResource($user);
@@ -164,20 +160,16 @@ class UserController extends Controller
             'email' => 'email',
         ];
     }
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
         try {
+
             $this->authorize('update', User::class);
             $input = $request->all();
-            $this->validate($request, $this->validationRulesUpdate());
 
             $user = $this->userRepository->update($id, $input);
 
             return new UserResource($user);
-        }
-        catch (ValidationException $validationException)
-        {
-            return response()->json(['message' => $validationException->getMessage()], 422);
         }
         catch (\Exception $e)
         {

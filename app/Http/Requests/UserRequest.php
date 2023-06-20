@@ -2,24 +2,13 @@
 
 namespace App\Http\Requests;
 
-use App\Repositories\Users\User;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Hash;
 
 class UserRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        $permission = [
-          'create' => Gate::allows('create', User::class),
-          'update' => Gate::allows('update', User::class)
-        ];
-        return $permission['create'] && $permission['update'];
-    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -33,6 +22,12 @@ class UserRequest extends FormRequest
             'email' => 'required|email|unique:users',
             'password' => 'required',
         ];
+    }
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'message' => $validator->errors()->first()
+        ], 422));
     }
     public function createUser()
     {
