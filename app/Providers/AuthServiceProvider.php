@@ -3,7 +3,10 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use App\Policies\UserPolicy;
+use App\Repositories\Users\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
@@ -15,6 +18,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
+        User::class => UserPolicy::class,
     ];
 
     /**
@@ -23,6 +27,13 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerPolicies();
+
+
+        Gate::define('create', [UserPolicy::class, 'create']);
+//        Gate::define('show', [UserPolicy::class, 'show']);
+//        Gate::define('update', [UserPolicy::class, 'update']);
+//        Gate::define('delete', [UserPolicy::class, 'delete']);
+
         Passport::tokensExpireIn(now()->addDays(15));
         Passport::refreshTokensExpireIn(now()->addDays(30));
         Passport::personalAccessTokensExpireIn(now()->addMonths(6));

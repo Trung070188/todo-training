@@ -3,28 +3,57 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Http\Requests\UserRequest;
+use App\Http\Resources\UserResource;
+use App\Repositories\Users\User;
+use App\Repositories\Users\UserRepository;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Validation\ValidationException;
 use Psr\Http\Message\ServerRequestInterface;
 
 class UserController extends Controller
 {
+    private $userRepository;
+
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        try
+        {
+            $this->authorize('view', User::class);
+            $query = $request->query();
+            $params = array_merge($query);
+            $users = $this->userRepository->getByQuery($params);
+            return response()->json(['users' => $users]);
+
+        }
+        catch (\Exception $e)
+        {
+            return response()->json(['message' => 'Authorization failed']);
+
+        }
+
     }
 
     /**
      * Store a newly created resource in storage.
      */
+
+    protected function validationRulesLogin(): array
+    {
+        return [
+            'email' => 'required|email',
+            'password' => 'required'
+        ];
+    }
     public function login(ServerRequestInterface $request)
     {
         $input = $request->getParsedBody();
@@ -49,50 +78,121 @@ class UserController extends Controller
         return app()->make(\Laravel\Passport\Http\Controllers\AccessTokenController::class)->issueToken($requester);
     }
 
-    public function register(Request $request)
+    /**
+     * validate register
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    protected function validationRulesRegister(): array
     {
-        $input = $request->all();
-        $validate = Validator::make($input, [
+        return [
             'name' => 'required',
             'email' => 'required|email',
             'password' => 'required'
-            ]);
-        if($validate->fails())
+        ];
+    }
+    public function store(UserRequest $request)
+    {
+        try {
+            $this->authorize('create', User::class);
+            $dataUser = $request->createUser();
+            $user = $this->userRepository->create($dataUser);
+            return new UserResource($user);
+        }
+        catch (\Exception $e)
         {
-            return response()->json(['error' => $validate->errors()], 422);
+            return response()->json(['message' => 'Authorization failed.'], 405);
+
         }
 
-        $user = User::create([
-            'name' => $input['name'],
-            'email' => $input['email'],
-            'password' => Hash::make($input['password'])
-        ]);
+    }
 
-        return response()->json(['user' => $user]);
+    public function register(Request $request)
+    {
+        try {
+            $dataUser = $request->all();
+            $this->validate($request, $this->validationRulesRegister());
+            $user = $this->userRepository->create($dataUser);
+            return new UserResource($user);
+
+        }
+        catch (ValidationException $validationException)
+        {
+            return response()->json(['message' => $validationException->getMessage()],422);
+        }
+        catch (\Exception $e)
+        {
+            return response()->json(['message' => $e->getMessage()], 405);
+
+        }
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show($id)
     {
-        $user = Auth::guard('api')->user();
-        return response()->json(['user' => $user]);
+        try {
+            $this->authorize('show', User::class);
+
+            $user =  $this->userRepository->show($id);
+
+            return new UserResource($user);
+
+
+        }
+        catch (\Exception $e)
+        {
+            return response()->json(['message' => 'Authorization failed.'], 405);
+        }
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+
+    protected function validationRulesUpdate(): array
     {
-        //
+        return [
+            'email' => 'email',
+        ];
+    }
+    public function update(UserRequest $request, $id)
+    {
+        try {
+
+            $this->authorize('update', User::class);
+            $input = $request->all();
+
+            $user = $this->userRepository->update($id, $input);
+
+            return new UserResource($user);
+        }
+        catch (\Exception $e)
+        {
+            return response()->json(['message' => 'Authorization failed.']);
+
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        //
+        try {
+            $this->authorize('delete', User::class);
+            $this->userRepository->delete($id);
+            return response()->json(['message' => 'Ok']);
+        }
+        catch (\Exception $e)
+        {
+            return response()->json(['message' => 'Authorization failed.'], 405);
+
+        }
+
     }
 }
