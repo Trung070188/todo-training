@@ -3,26 +3,23 @@
 namespace App\Policies;
 
 use App\Repositories\Users\User;
-use App\Repositories\Users\Enums\Roles;
 
 class UserPolicy
 {
     public function view(User $user): bool
     {
-
-        if ($user->isAdmin()) {
+        if($user->policy('view'))
+        {
             return true;
         }
-
         return false;
     }
     public function show(User $user): bool
     {
-
-        if ($user->isAdmin()) {
+        if($user->policy('show'))
+        {
             return true;
         }
-
         return false;
     }
 
@@ -31,10 +28,10 @@ class UserPolicy
      */
     public function create(User $user): bool
     {
-        if ($user->isAdmin()) {
+        if($user->policy('create'))
+        {
             return true;
         }
-
         return false;
     }
 
@@ -43,11 +40,10 @@ class UserPolicy
      */
     public function update(User $user): bool
     {
-
-        if ($user->isAdmin() || $user->id === $user->id) {
+        if($user->policy('update'))
+        {
             return true;
         }
-
         return false;
     }
 
@@ -56,11 +52,12 @@ class UserPolicy
      */
     public function delete(User $user): bool
     {
-        if ($user->isAdmin() && $user->role !== $user->role) {
+        if($user->policy('delete'))
+        {
             return true;
         }
-
         return false;
+
     }
 
 }

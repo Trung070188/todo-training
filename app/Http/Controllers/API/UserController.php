@@ -30,9 +30,8 @@ class UserController extends Controller
         {
             $this->authorize('view', User::class);
             $query = $request->query();
-            $params = array_merge($query);
-            $users = $this->userRepository->getByQuery($params);
-            return response()->json(['users' => $users]);
+            $users = $this->userRepository->getByQuery($query);
+             return UserResource::collection($users);
 
         }
         catch (\Exception $e)
