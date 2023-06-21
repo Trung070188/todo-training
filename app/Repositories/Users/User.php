@@ -7,6 +7,7 @@ use App\Repositories\Users\Enums\Roles;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Config;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -65,6 +66,71 @@ class User extends Authenticatable
         }
         return  false;
 
+    }
+    public function isCustomer()
+    {
+        foreach ($this->queryUser() as $role)
+        {
+            if($role == Roles::CUSTOMER->value )
+            {
+                return true;
+            }
+        }
+        return  false;
+
+    }
+    public function isEmployee()
+    {
+        foreach ($this->queryUser() as $role)
+        {
+            if($role == Roles::EMPLOY->value )
+            {
+                return true;
+            }
+        }
+        return  false;
+
+    }
+
+//    public function policy($role, $permission)
+//    {
+//        $roles = Config::get('role');
+//
+//        if (array_key_exists($role, $roles)) {
+//            return in_array($permission, $roles[$role]);
+//        }
+//
+//        return false;
+//    }
+
+    public function policy(string $action, string $model): bool
+    {
+        $group = $this->setGroup();
+        $policies = config('permission');
+
+        if (array_key_exists($group, $policies)) {
+            $allowedActions = $policies[$group][$model];
+            return in_array($action, $allowedActions);
+        }
+
+        return false;
+    }
+
+    public function setGroup(): string
+    {
+        if ($this->isAdmin()) {
+            return 'admin';
+        }
+
+        if ($this->isCustomer()) {
+            return 'customer';
+        }
+
+        if ($this->isEmployee()) {
+            return 'employee';
+        }
+
+        return '';
     }
 
 }
