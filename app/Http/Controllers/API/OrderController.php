@@ -12,6 +12,14 @@ use App\Repositories\Orders\Order;
 use App\Repositories\Users\User;
 use Illuminate\Http\Request;
 
+/**
+ * @group Order
+ *
+ * APIs for managing Order
+ *
+ * @header Content-Type application/json
+ * @authenticated
+ */
 class OrderController extends Controller
 {
     private $orderrepository;
@@ -21,7 +29,26 @@ class OrderController extends Controller
         $this->orderrepository = $orderRepository;
     }
     /**
-     * Display a listing of the resource.
+     * View order
+     *
+     * Data trả về list danh sách product
+     *
+     *  @response 201
+     * "data": {
+     *   "id": 106,
+     *   "user_id": 1,
+     *   "order_status": 1,
+     *   "price": 2000,
+     *   "product_id": 1,
+     *   "product_name": "Ban"
+     * },
+     *  { "id": 107,
+     *   "user_id": 1,
+     *   "order_status": 1,
+     *   "price": 2000,
+     *   "product_id": 1,
+     *   "product_name": "Ban"
+     * }
      */
     public function index(Request $request)
     {
@@ -39,7 +66,24 @@ class OrderController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create order
+     *
+     * Kết quả trả về file json order
+     *
+     * @bodyParam order_total int required Example: 1
+     * @bodyParam product_id int required Example: 1
+     *
+     *@response 201 {
+     * "data": [
+     * {
+     *  "id": 106,
+     *  "user_id": 1,
+     *  "order_status": 1,
+     *  "price": 2000,
+     *  "product_id": 1,
+     *  "product_name": "Ban"
+     *  }
+     *
      */
     public function store(OrderCreateRequest $request)
     {
@@ -56,9 +100,26 @@ class OrderController extends Controller
         }
     }
 
+
     /**
-     * Display the specified resource.
+     * show order
+     *
+     * Kết quả trả về file json order
+     *
+     * @queryParam id int required Example : 1
+     *@response 201 {
+     * "data": [
+     * {
+     *  "id": 106,
+     *  "user_id": 1,
+     *  "order_status": 1,
+     *  "price": 2000,
+     *  "product_id": 1,
+     *  "product_name": "Ban"
+     *  }
+     *
      */
+
     public function show($id)
     {
         try {
@@ -74,7 +135,23 @@ class OrderController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * update order
+     *
+     * Kết quả trả về file json order
+     *
+     * @queryParam id int required Example : 1
+     * @bodyParam  order_total int Example : 3
+     *@response 201 {
+     * "data": [
+     * {
+     *  "id": 106,
+     *  "user_id": 1,
+     *  "order_status": 1,
+     *  "price": 2000,
+     *  "product_id": 1,
+     *  "product_name": "Ban"
+     *  }
+     *
      */
     public function update(OrderUpdateRequest $request, $id)
     {
@@ -92,7 +169,16 @@ class OrderController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * delete order
+     *
+     *
+     * @queryParam id int required Example : 1
+     *  @response 201 {
+     * "message": [
+     * {
+     *  "OK"
+     *  }
+     *
      */
     public function destroy($id)
     {

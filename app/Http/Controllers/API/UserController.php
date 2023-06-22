@@ -12,6 +12,15 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Psr\Http\Message\ServerRequestInterface;
 
+
+/**
+ * @group User
+ *
+ * APIs for managing Users
+ *
+ * @header Content-Type application/json
+ * @authenticated
+ */
 class UserController extends Controller
 {
     private $userRepository;
@@ -21,9 +30,7 @@ class UserController extends Controller
         $this->userRepository = $userRepository;
     }
 
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index(Request $request)
     {
         try
@@ -42,9 +49,6 @@ class UserController extends Controller
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
 
     protected function validationRulesLogin(): array
     {
@@ -53,6 +57,28 @@ class UserController extends Controller
             'password' => 'required'
         ];
     }
+
+
+    /**
+     * Login
+     *
+     * This endpoint is used to login a user to the system.
+     *
+     * @bodyParam email string required Example: ian@gmail.com
+     * @bodyParam password string required Example: 12345678
+     *
+     * @response scenario="Successful Login" {
+     * "message": "User Login Successfully",
+     * "access_token": "8|MgowQLkdpShwrb8AI9j1YAGmwnDjAOeE17XrP5nb",
+     * "token_type": "Bearer"
+     * }
+     *
+     * @response 401 scenario="Failed Login"{
+     * "message": "Invalid login credentials"
+     *
+     * }
+     *
+     */
     public function login(ServerRequestInterface $request)
     {
         $input = $request->getParsedBody();
@@ -91,6 +117,25 @@ class UserController extends Controller
             'password' => 'required'
         ];
     }
+
+    /**
+     * Create users
+     *
+     * Kết quả trả về file json user
+     *
+     * @bodyParam name string required Example: Trung
+     * @bodyParam email string required Example: admin@gmail.com
+     * @bodyParam password string required
+     *
+     *@response 201 {
+     * "data": {
+     *   "id": 1,
+     *   "name": "Trung",
+     *   "email": "admin@gmail.com",
+     * }
+     *}
+     */
+
     public function store(UserRequest $request)
     {
         try {
@@ -107,6 +152,25 @@ class UserController extends Controller
 
     }
 
+
+    /**
+     * Đăng ký users
+     *
+     * Kết quả trả về file json user
+     *
+     * @bodyParam name string required Example: Trung
+     * @bodyParam email string required Example: admin@gmail.com
+     * @bodyParam password string required
+     *
+     *@response 201 {
+     * "data": {
+     *   "id": 1,
+     *   "name": "Trung",
+     *   "email": "admin@gmail.com",
+     * }
+     *}
+     */
+
     public function register(Request $request)
     {
         try {
@@ -120,16 +184,22 @@ class UserController extends Controller
         {
             return response()->json(['message' => $validationException->getMessage()],422);
         }
-        catch (\Exception $e)
-        {
-            return response()->json(['message' => $e->getMessage()], 405);
-
-        }
-
     }
 
     /**
-     * Display the specified resource.
+     * Show 1 user
+     *
+     * Kết quả trả về file json user
+     *
+     * @queryParam id int required Example: 1
+     *
+     *@response 201 {
+     * "data": {
+     *   "id": 1,
+     *   "name": "Trung",
+     *   "email": "admin@gmail.com",
+     * }
+     *}
      */
     public function show($id)
     {
@@ -159,6 +229,23 @@ class UserController extends Controller
             'email' => 'email',
         ];
     }
+
+    /**
+     * update user
+     *
+     * Kết quả trả về file json user
+     *
+     * @bodyParam email Example: admin1@gmail.com
+     * @queryParam id required Example :1
+     *
+     *@response 201 {
+     * "data": {
+     *   "id": 1,
+     *   "name": "Trung",
+     *   "email": "admin1@gmail.com",
+     * }
+     *}
+     */
     public function update(UserRequest $request, $id)
     {
         try {
@@ -178,7 +265,10 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete user
+     * Trả về message
+     * @queryParam id int Example :1
+     * @response 200 {"message : OK"}
      */
     public function destroy($id)
     {

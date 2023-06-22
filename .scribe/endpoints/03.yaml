@@ -1,0 +1,340 @@
+name: Order
+description: |-
+
+  APIs for managing Order
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: api/orders
+    metadata:
+      groupName: Order
+      groupDescription: |-
+
+        APIs for managing Order
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'View order'
+      description: 'Data trả về list danh sách product'
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer <token>'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 201
+        content: |-
+          "data": {
+            "id": 106,
+            "user_id": 1,
+            "order_status": 1,
+            "price": 2000,
+            "product_id": 1,
+            "product_name": "Ban"
+          },
+           { "id": 107,
+            "user_id": 1,
+            "order_status": 1,
+            "price": 2000,
+            "product_id": 1,
+            "product_name": "Ban"
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6bZdca6Va3e5v84gh1PDEfk'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/orders/{id}'
+    metadata:
+      groupName: Order
+      groupDescription: |-
+
+        APIs for managing Order
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'show order'
+      description: 'Kết quả trả về file json order'
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer <token>'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the order.'
+        required: true
+        example: rerum
+        type: string
+        custom: []
+    cleanUrlParameters:
+      id: rerum
+    queryParameters:
+      id:
+        name: id
+        description: 'Example : 1'
+        required: true
+        example: 12
+        type: integer
+        custom: []
+    cleanQueryParameters:
+      id: 12
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 201
+        content: |-
+          {
+          "data": [
+          {
+           "id": 106,
+           "user_id": 1,
+           "order_status": 1,
+           "price": 2000,
+           "product_id": 1,
+           "product_name": "Ban"
+           }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer Ddgf3aE866Pa5eZk1hcvV4b'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/orders
+    metadata:
+      groupName: Order
+      groupDescription: |-
+
+        APIs for managing Order
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Create order'
+      description: 'Kết quả trả về file json order'
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer <token>'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      order_total:
+        name: order_total
+        description: ''
+        required: true
+        example: 1
+        type: integer
+        custom: []
+      product_id:
+        name: product_id
+        description: ''
+        required: true
+        example: 1
+        type: integer
+        custom: []
+    cleanBodyParameters:
+      order_total: 1
+      product_id: 1
+    fileParameters: []
+    responses:
+      -
+        status: 201
+        content: |-
+          {
+          "data": [
+          {
+           "id": 106,
+           "user_id": 1,
+           "order_status": 1,
+           "price": 2000,
+           "product_id": 1,
+           "product_name": "Ban"
+           }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer aa65vDV6kbEhPZ3e1f8dc4g'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+    uri: 'api/orders/{id}'
+    metadata:
+      groupName: Order
+      groupDescription: |-
+
+        APIs for managing Order
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'update order'
+      description: 'Kết quả trả về file json order'
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer <token>'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the order.'
+        required: true
+        example: maxime
+        type: string
+        custom: []
+    cleanUrlParameters:
+      id: maxime
+    queryParameters:
+      id:
+        name: id
+        description: 'Example : 1'
+        required: true
+        example: 20
+        type: integer
+        custom: []
+    cleanQueryParameters:
+      id: 20
+    bodyParameters:
+      'order_total ':
+        name: 'order_total '
+        description: ''
+        required: true
+        example: molestiae
+        type: string
+        custom: []
+      order_total:
+        name: order_total
+        description: 'Example : 3'
+        required: false
+        example: 8
+        type: integer
+        custom: []
+    cleanBodyParameters:
+      'order_total ': molestiae
+      order_total: 8
+    fileParameters: []
+    responses:
+      -
+        status: 201
+        content: |-
+          {
+          "data": [
+          {
+           "id": 106,
+           "user_id": 1,
+           "order_status": 1,
+           "price": 2000,
+           "product_id": 1,
+           "product_name": "Ban"
+           }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer D3bEg6v6ka5ZdPhfeaV148c'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/orders/{id}'
+    metadata:
+      groupName: Order
+      groupDescription: |-
+
+        APIs for managing Order
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'delete order'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer <token>'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the order.'
+        required: true
+        example: cupiditate
+        type: string
+        custom: []
+    cleanUrlParameters:
+      id: cupiditate
+    queryParameters:
+      id:
+        name: id
+        description: |-
+          Example : 1
+           @response 201 {
+          "message": [
+          {
+           "OK"
+           }
+        required: true
+        example: 3
+        type: integer
+        custom: []
+    cleanQueryParameters:
+      id: 3
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer Pk4d86vaaEeV536Dhf1bZcg'
+    controller: null
+    method: null
+    route: null
+    custom: []

@@ -10,6 +10,15 @@ use App\Repositories\Products\Product;
 use App\Repositories\Products\ProductRepository;
 use Illuminate\Http\Request;
 
+
+/**
+ * @group Product
+ *
+ * APIs for managing Product
+ *
+ * @header Content-Type application/json
+ * @authenticated
+ */
 class ProductController extends Controller
 {
     private $productRepository;
@@ -18,8 +27,18 @@ class ProductController extends Controller
     {
         $this->productRepository = $productRepository;
     }
+
     /**
-     * Display a listing of the resource.
+     * View product
+     *
+     * Data trả về list danh sách product
+     *
+     *@response 201 {
+     * "data": {
+     *   "id": 1,
+     *   "name": "Trung",
+     *   "email": "admin@gmail.com",
+     * }
      */
     public function index(Request $request)
     {
@@ -38,7 +57,23 @@ class ProductController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create product
+     *
+     * Kết quả trả về file json product
+     *
+     * @bodyParam product_name string required Example: Cái Bàn
+     * @bodyParam product_price string required Example: 2000
+     * @bodyParam product_image string required Example: xxxxxx
+     *
+     *@response 201 {
+     * "data": {
+     *   "id": 1,
+     *   "product_name": "Cái Bàn",
+     *   "product_price": "2000",
+     *   "product_image": "1",
+     *    "product_status": 1
+     * }
+     *
      */
     public function store(ProductCreateRequest $request)
     {
@@ -56,7 +91,20 @@ class ProductController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * update product
+     *
+     * Kết quả trả về file json product
+     *
+     * @queryParam id required Example :1*
+     *@response 201 {
+     * "data": {
+     *   "id": 1,
+     *   "product_name": "Cái Bàn 1",
+     *   "product_price": "2000",
+     *   "product_image": "1",
+     *    "product_status": 1
+     * }
+     *
      */
     public function show($id)
     {
@@ -73,7 +121,22 @@ class ProductController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * update product
+     *
+     * Kết quả trả về file json product
+     *
+     * @queryParam id required Example :1
+     * @bodyParam product_name string required Example: Cái Bàn1
+     *
+     *@response 201 {
+     * "data": {
+     *   "id": 1,
+     *   "product_name": "Cái Bàn 1",
+     *   "product_price": "2000",
+     *   "product_image": "1",
+     *    "product_status": 1
+     * }
+     *
      */
     public function update(ProductUpdateRequest $request, $id)
     {
@@ -91,7 +154,15 @@ class ProductController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * delete product
+     *
+     * @queryParam id required Example :1
+     *
+     *@response 201 {
+     * "message": {
+     *   "OK"
+     * }
+     *
      */
     public function destroy(string $id)
     {
