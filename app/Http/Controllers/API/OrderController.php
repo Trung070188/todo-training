@@ -96,24 +96,10 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        try {
+       try {
             $this->authorize('delete', Order::class);
             $this->orderrepository->delete($id);
             return response()->json(['message' => 'OK']);
-        }
-        catch (\Exception $e)
-        {
-            return response()->json(['message' => 'Authorization failed']);
-
-        }
-    }
-
-    public function userOrder($id)
-    {
-        try {
-            $this->authorize('order', Order::class);
-            $userOrders = $this->orderrepository->order($id);
-            return OrderResource::collection($userOrders);
         }
         catch (\Exception $e)
         {

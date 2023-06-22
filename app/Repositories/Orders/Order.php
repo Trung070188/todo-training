@@ -10,13 +10,12 @@ class Order extends Model
     protected $fillable = [
         'id',
         'user_id',
-        'order_total',
         'order_status'
         ];
     protected $casts = [
       'order_status' => OrderStatus::class
     ];
-    public function order_details()
+    public function orderDetails()
     {
         return $this->hasMany(OrderDetail::class,'order_id');
     }

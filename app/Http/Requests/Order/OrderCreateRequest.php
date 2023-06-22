@@ -17,11 +17,9 @@ class OrderCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'order_total ' => 'required',
-            'product_id' => 'required',
-            'product_name' => 'required',
-            'product_price' => 'required'
-        ];
+//            '*.order_total' => 'required',
+//            '*.product_id' => 'required'
+            ];
     }
     protected function failedValidation(Validator $validator)
     {
