@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ProductRequest;
+use App\Http\Requests\Product\ProductCreateRequest;
+use App\Http\Requests\Product\ProductUpdateRequest;
 use App\Http\Resources\ProductResource;
+use App\Repositories\Products\Product;
 use App\Repositories\Products\ProductRepository;
-use App\Repositories\Products\Products;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -23,7 +24,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         try {
-            $this->authorize('view', Products::class);
+            $this->authorize('view', Product::class);
             $query = $request->query();
             $products = $this->productRepository->getByQuery($query);
             return ProductResource::collection($products);
@@ -39,10 +40,10 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ProductRequest $request)
+    public function store(ProductCreateRequest $request)
     {
         try {
-            $this->authorize('create', Products::class);
+            $this->authorize('create', Product::class);
             $input = $request->all();
             $product = $this->productRepository->create($input);
             return new ProductResource($product);
@@ -60,7 +61,7 @@ class ProductController extends Controller
     public function show($id)
     {
         try {
-            $this->authorize('show', Products::class);
+            $this->authorize('show', Product::class);
             $product = $this->productRepository->show($id);
             return new ProductResource($product);
         }
@@ -74,10 +75,10 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ProductRequest $request, $id)
+    public function update(ProductUpdateRequest $request, $id)
     {
         try {
-            $this->authorize('update', Products::class);
+            $this->authorize('update', Product::class);
             $input = $request->all();
             $product = $this->productRepository->update($id, $input);
             return new ProductResource($product);
@@ -95,7 +96,7 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         try {
-            $this->authorize('delete', Products::class);
+            $this->authorize('delete', Product::class);
             $this->productRepository->delete($id);
 
             return response()->json(['message' => 'Ok']);

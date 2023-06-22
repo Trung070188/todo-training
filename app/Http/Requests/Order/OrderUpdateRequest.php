@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Order;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Support\Facades\Hash;
 
-class UserRequest extends FormRequest
+class OrderUpdateRequest extends FormRequest
 {
 
     /**
@@ -18,9 +17,7 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
-            'email' => 'required|email|unique:users',
-            'password' => 'required',
+            'order_total ' => 'required',
         ];
     }
     protected function failedValidation(Validator $validator)
@@ -28,14 +25,5 @@ class UserRequest extends FormRequest
         throw new HttpResponseException(response()->json([
             'message' => $validator->errors()->first()
         ], 422));
-    }
-    public function createUser()
-    {
-        $input = $this->validated();
-        return [
-            'name' => $input['name'],
-            'email' => $input['email'],
-            'password' => Hash::make($input['password'])
-        ];
     }
 }
