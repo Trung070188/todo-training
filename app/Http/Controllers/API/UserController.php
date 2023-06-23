@@ -64,8 +64,8 @@ class UserController extends Controller
      *
      * This endpoint is used to login a user to the system.
      *
-     * @bodyParam email string required Example: ian@gmail.com
-     * @bodyParam password string required Example: 12345678
+     * @bodyParam email string required Example: admin@gmail.com
+     * @bodyParam password string required Example: 123456
      *
      * @response scenario="Successful Login" {
      * "message": "User Login Successfully",

@@ -501,7 +501,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost:8000/api/orders/rerum?id=12" \
+    --get "http://localhost:8000/api/orders/quia?id=2" \
     --header "Authorization: Bearer &amp;lt;token&amp;gt;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -509,11 +509,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/orders/rerum"
+    "http://localhost:8000/api/orders/quia"
 );
 
 const params = {
-    "id": "12",
+    "id": "2",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -533,7 +533,7 @@ fetch(url, {
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
 $response = $client-&gt;get(
-    'http://localhost:8000/api/orders/rerum',
+    'http://localhost:8000/api/orders/quia',
     [
         'headers' =&gt; [
             'Authorization' =&gt; 'Bearer &lt;token&gt;',
@@ -541,7 +541,7 @@ $response = $client-&gt;get(
             'Accept' =&gt; 'application/json',
         ],
         'query' =&gt; [
-            'id' =&gt; '12',
+            'id' =&gt; '2',
         ],
     ]
 );
@@ -655,10 +655,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="id"                data-endpoint="GETapi-orders--id-"
-               value="rerum"
+               value="quia"
                data-component="url">
     <br>
-<p>The ID of the order. Example: <code>rerum</code></p>
+<p>The ID of the order. Example: <code>quia</code></p>
             </div>
                         <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
                                     <div style="padding-left: 28px; clear: unset;">
@@ -667,10 +667,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                name="id"                data-endpoint="GETapi-orders--id-"
-               value="12"
+               value="2"
                data-component="query">
     <br>
-<p>Example : 1 Example: <code>12</code></p>
+<p>Example : 1 Example: <code>2</code></p>
             </div>
                 </form>
 
@@ -880,24 +880,24 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost:8000/api/orders/maxime?id=20" \
+    "http://localhost:8000/api/orders/eum?id=7" \
     --header "Authorization: Bearer &amp;lt;token&amp;gt;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"order_total \": \"molestiae\",
-    \"order_total\": 8
+    \"order_total \": \"non\",
+    \"order_total\": 6
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/orders/maxime"
+    "http://localhost:8000/api/orders/eum"
 );
 
 const params = {
-    "id": "20",
+    "id": "7",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -909,8 +909,8 @@ const headers = {
 };
 
 let body = {
-    "order_total ": "molestiae",
-    "order_total": 8
+    "order_total ": "non",
+    "order_total": 6
 };
 
 fetch(url, {
@@ -923,7 +923,7 @@ fetch(url, {
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
 $response = $client-&gt;put(
-    'http://localhost:8000/api/orders/maxime',
+    'http://localhost:8000/api/orders/eum',
     [
         'headers' =&gt; [
             'Authorization' =&gt; 'Bearer &lt;token&gt;',
@@ -931,11 +931,11 @@ $response = $client-&gt;put(
             'Accept' =&gt; 'application/json',
         ],
         'query' =&gt; [
-            'id' =&gt; '20',
+            'id' =&gt; '7',
         ],
         'json' =&gt; [
-            'order_total ' =&gt; 'molestiae',
-            'order_total' =&gt; 8,
+            'order_total ' =&gt; 'non',
+            'order_total' =&gt; 6,
         ],
     ]
 );
@@ -1049,10 +1049,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="id"                data-endpoint="PUTapi-orders--id-"
-               value="maxime"
+               value="eum"
                data-component="url">
     <br>
-<p>The ID of the order. Example: <code>maxime</code></p>
+<p>The ID of the order. Example: <code>eum</code></p>
             </div>
                         <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
                                     <div style="padding-left: 28px; clear: unset;">
@@ -1061,10 +1061,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                name="id"                data-endpoint="PUTapi-orders--id-"
-               value="20"
+               value="7"
                data-component="query">
     <br>
-<p>Example : 1 Example: <code>20</code></p>
+<p>Example : 1 Example: <code>7</code></p>
             </div>
                         <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -1073,10 +1073,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="order_total "                data-endpoint="PUTapi-orders--id-"
-               value="molestiae"
+               value="non"
                data-component="body">
     <br>
-<p>Example: <code>molestiae</code></p>
+<p>Example: <code>non</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>order_total</code></b>&nbsp;&nbsp;
@@ -1084,10 +1084,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
                 <input type="number" style="display: none"
                name="order_total"                data-endpoint="PUTapi-orders--id-"
-               value="8"
+               value="6"
                data-component="body">
     <br>
-<p>Example : 3 Example: <code>8</code></p>
+<p>Example : 3 Example: <code>6</code></p>
         </div>
         </form>
 
@@ -1105,7 +1105,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost:8000/api/orders/cupiditate?id=3" \
+    "http://localhost:8000/api/orders/ullam?id=16" \
     --header "Authorization: Bearer &amp;lt;token&amp;gt;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -1113,11 +1113,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/orders/cupiditate"
+    "http://localhost:8000/api/orders/ullam"
 );
 
 const params = {
-    "id": "3",
+    "id": "16",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -1137,7 +1137,7 @@ fetch(url, {
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
 $response = $client-&gt;delete(
-    'http://localhost:8000/api/orders/cupiditate',
+    'http://localhost:8000/api/orders/ullam',
     [
         'headers' =&gt; [
             'Authorization' =&gt; 'Bearer &lt;token&gt;',
@@ -1145,7 +1145,7 @@ $response = $client-&gt;delete(
             'Accept' =&gt; 'application/json',
         ],
         'query' =&gt; [
-            'id' =&gt; '3',
+            'id' =&gt; '16',
         ],
     ]
 );
@@ -1243,10 +1243,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="id"                data-endpoint="DELETEapi-orders--id-"
-               value="cupiditate"
+               value="ullam"
                data-component="url">
     <br>
-<p>The ID of the order. Example: <code>cupiditate</code></p>
+<p>The ID of the order. Example: <code>ullam</code></p>
             </div>
                         <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
                                     <div style="padding-left: 28px; clear: unset;">
@@ -1255,7 +1255,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                name="id"                data-endpoint="DELETEapi-orders--id-"
-               value="3"
+               value="16"
                data-component="query">
     <br>
 <p>Example : 1
@@ -1263,7 +1263,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 &quot;message&quot;: [
 {
 &quot;OK&quot;
-} Example: <code>3</code></p>
+} Example: <code>16</code></p>
             </div>
                 </form>
 
@@ -1435,7 +1435,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost:8000/api/products/cupiditate?id=ullam" \
+    --get "http://localhost:8000/api/products/officia?id=repellat" \
     --header "Authorization: Bearer &amp;lt;token&amp;gt;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -1443,11 +1443,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/products/cupiditate"
+    "http://localhost:8000/api/products/officia"
 );
 
 const params = {
-    "id": "ullam",
+    "id": "repellat",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -1467,7 +1467,7 @@ fetch(url, {
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
 $response = $client-&gt;get(
-    'http://localhost:8000/api/products/cupiditate',
+    'http://localhost:8000/api/products/officia',
     [
         'headers' =&gt; [
             'Authorization' =&gt; 'Bearer &lt;token&gt;',
@@ -1475,7 +1475,7 @@ $response = $client-&gt;get(
             'Accept' =&gt; 'application/json',
         ],
         'query' =&gt; [
-            'id' =&gt; 'ullam',
+            'id' =&gt; 'repellat',
         ],
     ]
 );
@@ -1587,10 +1587,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="id"                data-endpoint="GETapi-products--id-"
-               value="cupiditate"
+               value="officia"
                data-component="url">
     <br>
-<p>The ID of the product. Example: <code>cupiditate</code></p>
+<p>The ID of the product. Example: <code>officia</code></p>
             </div>
                         <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
                                     <div style="padding-left: 28px; clear: unset;">
@@ -1599,10 +1599,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="id"                data-endpoint="GETapi-products--id-"
-               value="ullam"
+               value="repellat"
                data-component="query">
     <br>
-<p>Example :1* Example: <code>ullam</code></p>
+<p>Example :1* Example: <code>repellat</code></p>
             </div>
                 </form>
 
@@ -1824,7 +1824,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost:8000/api/products/corporis?id=ut" \
+    "http://localhost:8000/api/products/tempore?id=porro" \
     --header "Authorization: Bearer &amp;lt;token&amp;gt;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -1836,11 +1836,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/products/corporis"
+    "http://localhost:8000/api/products/tempore"
 );
 
 const params = {
-    "id": "ut",
+    "id": "porro",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -1865,7 +1865,7 @@ fetch(url, {
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
 $response = $client-&gt;put(
-    'http://localhost:8000/api/products/corporis',
+    'http://localhost:8000/api/products/tempore',
     [
         'headers' =&gt; [
             'Authorization' =&gt; 'Bearer &lt;token&gt;',
@@ -1873,7 +1873,7 @@ $response = $client-&gt;put(
             'Accept' =&gt; 'application/json',
         ],
         'query' =&gt; [
-            'id' =&gt; 'ut',
+            'id' =&gt; 'porro',
         ],
         'json' =&gt; [
             'product_name' =&gt; 'Cái Bàn1',
@@ -1988,10 +1988,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="id"                data-endpoint="PUTapi-products--id-"
-               value="corporis"
+               value="tempore"
                data-component="url">
     <br>
-<p>The ID of the product. Example: <code>corporis</code></p>
+<p>The ID of the product. Example: <code>tempore</code></p>
             </div>
                         <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
                                     <div style="padding-left: 28px; clear: unset;">
@@ -2000,10 +2000,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="id"                data-endpoint="PUTapi-products--id-"
-               value="ut"
+               value="porro"
                data-component="query">
     <br>
-<p>Example :1 Example: <code>ut</code></p>
+<p>Example :1 Example: <code>porro</code></p>
             </div>
                         <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -2033,7 +2033,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost:8000/api/products/a?id=a" \
+    "http://localhost:8000/api/products/perferendis?id=autem" \
     --header "Authorization: Bearer &amp;lt;token&amp;gt;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -2041,11 +2041,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/products/a"
+    "http://localhost:8000/api/products/perferendis"
 );
 
 const params = {
-    "id": "a",
+    "id": "autem",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -2065,7 +2065,7 @@ fetch(url, {
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
 $response = $client-&gt;delete(
-    'http://localhost:8000/api/products/a',
+    'http://localhost:8000/api/products/perferendis',
     [
         'headers' =&gt; [
             'Authorization' =&gt; 'Bearer &lt;token&gt;',
@@ -2073,7 +2073,7 @@ $response = $client-&gt;delete(
             'Accept' =&gt; 'application/json',
         ],
         'query' =&gt; [
-            'id' =&gt; 'a',
+            'id' =&gt; 'autem',
         ],
     ]
 );
@@ -2181,10 +2181,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="id"                data-endpoint="DELETEapi-products--id-"
-               value="a"
+               value="perferendis"
                data-component="url">
     <br>
-<p>The ID of the product. Example: <code>a</code></p>
+<p>The ID of the product. Example: <code>perferendis</code></p>
             </div>
                         <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
                                     <div style="padding-left: 28px; clear: unset;">
@@ -2193,10 +2193,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="id"                data-endpoint="DELETEapi-products--id-"
-               value="a"
+               value="autem"
                data-component="query">
     <br>
-<p>Example :1 Example: <code>a</code></p>
+<p>Example :1 Example: <code>autem</code></p>
             </div>
                 </form>
 
@@ -2225,7 +2225,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --data "{
     \"name\": \"Trung\",
     \"email\": \"admin@gmail.com\",
-    \"password\": \"h6U^#66)iM\\/oWg$b\"
+    \"password\": \"QgvaK$\\/{mfQV)!%Z*5A\"
 }"
 </code></pre></div>
 
@@ -2244,7 +2244,7 @@ const headers = {
 let body = {
     "name": "Trung",
     "email": "admin@gmail.com",
-    "password": "h6U^#66)iM\/oWg$b"
+    "password": "QgvaK$\/{mfQV)!%Z*5A"
 };
 
 fetch(url, {
@@ -2267,7 +2267,7 @@ $response = $client-&gt;post(
         'json' =&gt; [
             'name' =&gt; 'Trung',
             'email' =&gt; 'admin@gmail.com',
-            'password' =&gt; 'h6U^#66)iM/oWg$b',
+            'password' =&gt; 'QgvaK$/{mfQV)!%Z*5A',
         ],
     ]
 );
@@ -2400,10 +2400,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="password"                data-endpoint="POSTapi-register"
-               value="h6U^#66)iM/oWg$b"
+               value="QgvaK$/{mfQV)!%Z*5A"
                data-component="body">
     <br>
-<p>Example: <code>h6U^#66)iM/oWg$b</code></p>
+<p>Example: <code>QgvaK$/{mfQV)!%Z*5A</code></p>
         </div>
         </form>
 
@@ -2426,8 +2426,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"email\": \"ian@gmail.com\",
-    \"password\": \"12345678\"
+    \"email\": \"admin@gmail.com\",
+    \"password\": \"123456\"
 }"
 </code></pre></div>
 
@@ -2444,8 +2444,8 @@ const headers = {
 };
 
 let body = {
-    "email": "ian@gmail.com",
-    "password": "12345678"
+    "email": "admin@gmail.com",
+    "password": "123456"
 };
 
 fetch(url, {
@@ -2466,8 +2466,8 @@ $response = $client-&gt;post(
             'Accept' =&gt; 'application/json',
         ],
         'json' =&gt; [
-            'email' =&gt; 'ian@gmail.com',
-            'password' =&gt; '12345678',
+            'email' =&gt; 'admin@gmail.com',
+            'password' =&gt; '123456',
         ],
     ]
 );
@@ -2585,10 +2585,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="email"                data-endpoint="POSTapi-login"
-               value="ian@gmail.com"
+               value="admin@gmail.com"
                data-component="body">
     <br>
-<p>Example: <code>ian@gmail.com</code></p>
+<p>Example: <code>admin@gmail.com</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
@@ -2596,10 +2596,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="password"                data-endpoint="POSTapi-login"
-               value="12345678"
+               value="123456"
                data-component="body">
     <br>
-<p>Example: <code>12345678</code></p>
+<p>Example: <code>123456</code></p>
         </div>
         </form>
 
@@ -2771,7 +2771,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost:8000/api/users/dolores?id=1" \
+    --get "http://localhost:8000/api/users/debitis?id=1" \
     --header "Authorization: Bearer &amp;lt;token&amp;gt;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -2779,7 +2779,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/users/dolores"
+    "http://localhost:8000/api/users/debitis"
 );
 
 const params = {
@@ -2803,7 +2803,7 @@ fetch(url, {
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
 $response = $client-&gt;get(
-    'http://localhost:8000/api/users/dolores',
+    'http://localhost:8000/api/users/debitis',
     [
         'headers' =&gt; [
             'Authorization' =&gt; 'Bearer &lt;token&gt;',
@@ -2922,10 +2922,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="id"                data-endpoint="GETapi-users--id-"
-               value="dolores"
+               value="debitis"
                data-component="url">
     <br>
-<p>The ID of the user. Example: <code>dolores</code></p>
+<p>The ID of the user. Example: <code>debitis</code></p>
             </div>
                         <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
                                     <div style="padding-left: 28px; clear: unset;">
@@ -2962,7 +2962,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --data "{
     \"name\": \"Trung\",
     \"email\": \"admin@gmail.com\",
-    \"password\": \"{!U\\\\{Z`_\'?(4qWk6\"
+    \"password\": \"BSj9X?7te5?}a_!a[\"
 }"
 </code></pre></div>
 
@@ -2981,7 +2981,7 @@ const headers = {
 let body = {
     "name": "Trung",
     "email": "admin@gmail.com",
-    "password": "{!U\\{Z`_'?(4qWk6"
+    "password": "BSj9X?7te5?}a_!a["
 };
 
 fetch(url, {
@@ -3004,7 +3004,7 @@ $response = $client-&gt;post(
         'json' =&gt; [
             'name' =&gt; 'Trung',
             'email' =&gt; 'admin@gmail.com',
-            'password' =&gt; '{!U\\{Z`_\'?(4qWk6',
+            'password' =&gt; 'BSj9X?7te5?}a_!a[',
         ],
     ]
 );
@@ -3137,10 +3137,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="password"                data-endpoint="POSTapi-users"
-               value="{!U\{Z`_'?(4qWk6"
+               value="BSj9X?7te5?}a_!a["
                data-component="body">
     <br>
-<p>Example: <code>{!U\{Z</code>_'?(4qWk6`</p>
+<p>Example: <code>BSj9X?7te5?}a_!a[</code></p>
         </div>
         </form>
 
@@ -3158,25 +3158,25 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost:8000/api/users/nam?id=minus" \
+    "http://localhost:8000/api/users/cupiditate?id=at" \
     --header "Authorization: Bearer &amp;lt;token&amp;gt;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"name\": \"pvtabjyvyhfczaawyxduzfhy\",
-    \"email\": \"neha51@example.net\",
-    \"password\": \"rerum\"
+    \"name\": \"xblfl\",
+    \"email\": \"mills.roberto@example.com\",
+    \"password\": \"quasi\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/users/nam"
+    "http://localhost:8000/api/users/cupiditate"
 );
 
 const params = {
-    "id": "minus",
+    "id": "at",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -3188,9 +3188,9 @@ const headers = {
 };
 
 let body = {
-    "name": "pvtabjyvyhfczaawyxduzfhy",
-    "email": "neha51@example.net",
-    "password": "rerum"
+    "name": "xblfl",
+    "email": "mills.roberto@example.com",
+    "password": "quasi"
 };
 
 fetch(url, {
@@ -3203,7 +3203,7 @@ fetch(url, {
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
 $response = $client-&gt;put(
-    'http://localhost:8000/api/users/nam',
+    'http://localhost:8000/api/users/cupiditate',
     [
         'headers' =&gt; [
             'Authorization' =&gt; 'Bearer &lt;token&gt;',
@@ -3211,12 +3211,12 @@ $response = $client-&gt;put(
             'Accept' =&gt; 'application/json',
         ],
         'query' =&gt; [
-            'id' =&gt; 'minus',
+            'id' =&gt; 'at',
         ],
         'json' =&gt; [
-            'name' =&gt; 'pvtabjyvyhfczaawyxduzfhy',
-            'email' =&gt; 'neha51@example.net',
-            'password' =&gt; 'rerum',
+            'name' =&gt; 'xblfl',
+            'email' =&gt; 'mills.roberto@example.com',
+            'password' =&gt; 'quasi',
         ],
     ]
 );
@@ -3327,10 +3327,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="id"                data-endpoint="PUTapi-users--id-"
-               value="nam"
+               value="cupiditate"
                data-component="url">
     <br>
-<p>The ID of the user. Example: <code>nam</code></p>
+<p>The ID of the user. Example: <code>cupiditate</code></p>
             </div>
                         <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
                                     <div style="padding-left: 28px; clear: unset;">
@@ -3339,10 +3339,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="id"                data-endpoint="PUTapi-users--id-"
-               value="minus"
+               value="at"
                data-component="query">
     <br>
-<p>Example :1 Example: <code>minus</code></p>
+<p>Example :1 Example: <code>at</code></p>
             </div>
                         <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -3351,10 +3351,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="name"                data-endpoint="PUTapi-users--id-"
-               value="pvtabjyvyhfczaawyxduzfhy"
+               value="xblfl"
                data-component="body">
     <br>
-<p>Must not be greater than 255 characters. Example: <code>pvtabjyvyhfczaawyxduzfhy</code></p>
+<p>Must not be greater than 255 characters. Example: <code>xblfl</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
@@ -3362,10 +3362,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                name="email"                data-endpoint="PUTapi-users--id-"
-               value="neha51@example.net"
+               value="mills.roberto@example.com"
                data-component="body">
     <br>
-<p>admin1@gmail.com Example: <code>neha51@example.net</code></p>
+<p>admin1@gmail.com Example: <code>mills.roberto@example.com</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
@@ -3373,10 +3373,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="password"                data-endpoint="PUTapi-users--id-"
-               value="rerum"
+               value="quasi"
                data-component="body">
     <br>
-<p>Example: <code>rerum</code></p>
+<p>Example: <code>quasi</code></p>
         </div>
         </form>
 
@@ -3395,7 +3395,7 @@ Trả về message</h2>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost:8000/api/users/et?id=18" \
+    "http://localhost:8000/api/users/deleniti?id=19" \
     --header "Authorization: Bearer &amp;lt;token&amp;gt;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -3403,11 +3403,11 @@ Trả về message</h2>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/users/et"
+    "http://localhost:8000/api/users/deleniti"
 );
 
 const params = {
-    "id": "18",
+    "id": "19",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -3427,7 +3427,7 @@ fetch(url, {
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
 $response = $client-&gt;delete(
-    'http://localhost:8000/api/users/et',
+    'http://localhost:8000/api/users/deleniti',
     [
         'headers' =&gt; [
             'Authorization' =&gt; 'Bearer &lt;token&gt;',
@@ -3435,7 +3435,7 @@ $response = $client-&gt;delete(
             'Accept' =&gt; 'application/json',
         ],
         'query' =&gt; [
-            'id' =&gt; '18',
+            'id' =&gt; '19',
         ],
     ]
 );
@@ -3540,10 +3540,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="id"                data-endpoint="DELETEapi-users--id-"
-               value="et"
+               value="deleniti"
                data-component="url">
     <br>
-<p>The ID of the user. Example: <code>et</code></p>
+<p>The ID of the user. Example: <code>deleniti</code></p>
             </div>
                         <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
                                     <div style="padding-left: 28px; clear: unset;">
@@ -3552,10 +3552,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
                 <input type="number" style="display: none"
                name="id"                data-endpoint="DELETEapi-users--id-"
-               value="18"
+               value="19"
                data-component="query">
     <br>
-<p>Example :1 Example: <code>18</code></p>
+<p>Example :1 Example: <code>19</code></p>
             </div>
                 </form>
 
