@@ -69,21 +69,38 @@ class OrderController extends Controller
      * Create order
      *
      * Kết quả trả về file json order
-     *
-     * @bodyParam order_total int required Example: 1
-     * @bodyParam product_id int required Example: 1
+     * Truyền vào một mảng gồm nhiều sản phẩm
+     * @bodyParam product_quantity int :là số lượng sản phẩm required Example: 1
+     * @bodyParam product_id : là id của sản phầm int required Example: 1
      *
      *@response 201 {
      * "data": [
      * {
      *  "id": 106,
-     *  "user_id": 1,
-     *  "order_status": 1,
-     *  "price": 2000,
-     *  "product_id": 1,
-     *  "product_name": "Ban"
-     *  }
-     *
+     *  "user": {
+     *  "id" : 1,
+     *  "name" : "admin"
+     *  "email" : "admin@gmail.com"
+     * },
+     *  "order_details": [
+     *  "id": 1,
+     *  "order_id" : 107,
+     *  "product" : [
+     * {
+     *      "id" :1,
+     *      "product_name" :"Bàn"
+     *      "product_price" : 1000
+     *      "product_image" :"xxxx"
+     * },
+     * {
+     *      "id" :2,
+     *      "product_name" :"Ghế"
+     *      "product_price" : 2000
+     *      "product_image" :"xxxx"
+     * }
+     * ],
+     * ]
+     * },
      */
     public function store(OrderCreateRequest $request)
     {
@@ -99,27 +116,42 @@ class OrderController extends Controller
 
         }
     }
-
-
     /**
      * show order
      *
      * Kết quả trả về file json order
-     *
+     * Truyền Id của order
      * @queryParam id int required Example : 1
+     *
      *@response 201 {
      * "data": [
      * {
      *  "id": 106,
-     *  "user_id": 1,
-     *  "order_status": 1,
-     *  "price": 2000,
-     *  "product_id": 1,
-     *  "product_name": "Ban"
-     *  }
-     *
+     *  "user": {
+     *  "id" : 1,
+     *  "name" : "admin"
+     *  "email" : "admin@gmail.com"
+     * },
+     *  "order_details": [
+     *  "id": 1,
+     *  "order_id" : 107,
+     *  "product" : [
+     * {
+     *      "id" :1,
+     *      "product_name" :"Bàn"
+     *      "product_price" : 1000
+     *      "product_image" :"xxxx"
+     * },
+     * {
+     *      "id" :2,
+     *      "product_name" :"Ghế"
+     *      "product_price" : 2000
+     *      "product_image" :"xxxx"
+     * }
+     * ],
+     * ]
+     * },
      */
-
     public function show($id)
     {
         try {
@@ -139,19 +171,36 @@ class OrderController extends Controller
      *
      * Kết quả trả về file json order
      *
-     * @queryParam id int required Example : 1
-     * @bodyParam  order_total int Example : 3
+     * @queryParam id : là id của order int required Example : 1
+     * @bodyParam  product_qu int Example : 3
      *@response 201 {
      * "data": [
      * {
      *  "id": 106,
-     *  "user_id": 1,
-     *  "order_status": 1,
-     *  "price": 2000,
-     *  "product_id": 1,
-     *  "product_name": "Ban"
-     *  }
-     *
+     *  "user": {
+     *  "id" : 1,
+     *  "name" : "admin"
+     *  "email" : "admin@gmail.com"
+     * },
+     *  "order_details": [
+     *  "id": 1,
+     *  "order_id" : 107,
+     *  "product" : [
+     * {
+     *      "id" :1,
+     *      "product_name" :"Bàn"
+     *      "product_price" : 1000
+     *      "product_image" :"xxxx"
+     * },
+     * {
+     *      "id" :2,
+     *      "product_name" :"Ghế"
+     *      "product_price" : 2000
+     *      "product_image" :"xxxx"
+     * }
+     * ],
+     * ]
+     * },
      */
     public function update(OrderUpdateRequest $request, $id)
     {
