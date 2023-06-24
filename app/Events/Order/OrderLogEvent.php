@@ -8,20 +8,20 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class OrderCreateEvent
+class OrderLogEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
      * Create a new event instance.
      */
-    public $order;
-    public $data;
+    public $localOrder;
+    public $originOrder;
 
-    public function __construct(Order $order, $data)
+    public function __construct($localOrder, $originOrder)
     {
-        $this->order = $order;
-        $this->data = $data;
+        $this->localOrder = $localOrder;
+        $this->originOrder = $originOrder;
     }
 
 }

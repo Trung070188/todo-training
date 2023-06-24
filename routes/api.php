@@ -45,8 +45,12 @@ Route::group(['middleware' => 'auth:api'],function ()
     Route::post('/orders', 'OrderController@store');
     Route::put('/orders/{id}', 'OrderController@update');
     Route::delete('/orders/{id}', 'OrderController@destroy');
+    Route::post('/orders/status/{id}','OrderController@statusOrder');
 
+ // orderLog
 
+    Route::get('/order-logs', 'OrderLogController@index');
+    Route::delete('/order-logs', 'OrderLogController@delete');
 
 
 });

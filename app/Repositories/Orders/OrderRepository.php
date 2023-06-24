@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories\Orders;
 use App\Events\Order\OrderCreateEvent;
+use App\Events\Order\OrderLogEvent;
 use App\Repositories\BaseRepository;
 use App\Repositories\Users\User;
 use Illuminate\Support\Facades\Auth;
@@ -9,10 +10,12 @@ class OrderRepository extends BaseRepository
 {
     protected $model;
     private $orderDetailRepository ;
-    public function __construct(Order $orders, OrderDetailRepository $orderDetailRepository)
+    private $orderLogRepository ;
+    public function __construct(Order $orders, OrderDetailRepository $orderDetailRepository, OrderLogRepository $orderLogRepository)
     {
         $this->model = $orders;
         $this->orderDetailRepository = $orderDetailRepository;
+        $this->orderLogRepository = $orderLogRepository;
     }
     public function create(array $request)
     {
@@ -22,11 +25,26 @@ class OrderRepository extends BaseRepository
         $data['user_id'] = $user['id'];
 
         $order = parent::create($data);
+        $data = [
+          'order_id' => $order,
+          'status' => 1
+        ];
+        $this->orderLogRepository->create($data);
         event(new OrderCreateEvent($order, $request));
 
         return $order;
 
     }
+    public function update($id, array $data)
+    {
+       $localOrder =  $this->model($id);
+       $originOrder =  parent::update($id, $data);
+
+       event(new OrderLogEvent($localOrder,  $originOrder));
+
+       return $originOrder;
+    }
+
     public function delete($id):bool
     {
         $order = $this->getModel()->with(['orderDetails'])->find($id);

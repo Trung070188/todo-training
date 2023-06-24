@@ -24,7 +24,6 @@ class CreateOrderDetailListener
     {
         $order = $event->order;
         $data = $event->data;
-        $array= [];
         foreach ($data as $orderDetail)
         {
           $array = [
@@ -33,10 +32,8 @@ class CreateOrderDetailListener
               'order_total' => $orderDetail['order_total'],
               'user_id' => $order['user_id']
             ];
-           $array[] =  $this->detailRepository->create($array);
+            $this->detailRepository->create($array);
 
         }
-
-        return $array;
     }
 }

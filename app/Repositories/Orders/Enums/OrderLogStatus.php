@@ -2,9 +2,9 @@
 
 namespace App\Repositories\Orders\Enums;
 
-enum OrderStatus: int
+enum OrderLogStatus: int
 {
-    case Unpaid = 1;
+    case Create = 1;
     case Paid = 2;
     public function name()
     {
@@ -14,8 +14,8 @@ enum OrderStatus: int
     public static function getName(self $value)
     {
         return match ($value) {
-            OrderStatus::Unpaid => 'Chưa thanh toán',
-            OrderStatus::Paid => 'Đã thanh toán',
+            OrderLogStatus::Create => 'Tạo mới',
+            OrderLogStatus::Paid => 'Đã thanh toán',
         };
     }
 
@@ -30,14 +30,5 @@ enum OrderStatus: int
             $display[$payer->value] = self::getName($payer);
         }
         return $display;
-    }
-    public static function statusLog($status)
-    {
-        foreach (self::cases() as $payer) {
-            if($payer->value == $status)
-            {
-                return self::getName($payer);
-            }
-        }
     }
 }

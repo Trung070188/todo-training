@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Order\OrderCreateRequest;
+use App\Http\Requests\Order\OrderLogStatusRequest;
 use App\Http\Requests\Order\OrderUpdateRequest;
 use App\Http\Resources\OrderResource;
 use App\Http\Resources\UserResource;
@@ -172,7 +173,7 @@ class OrderController extends Controller
      * Kết quả trả về file json order
      *
      * @queryParam id : là id của order int required Example : 1
-     * @bodyParam  product_qu int Example : 3
+     * @bodyParam  order_status : mặc định là 1 int Example : 2
      *@response 201 {
      * "data": [
      * {
@@ -185,6 +186,7 @@ class OrderController extends Controller
      *  "order_details": [
      *  "id": 1,
      *  "order_id" : 107,
+     *  "order_status" : 2
      *  "product" : [
      * {
      *      "id" :1,
@@ -204,7 +206,7 @@ class OrderController extends Controller
      */
     public function update(OrderUpdateRequest $request, $id)
     {
-        try {
+       try {
             $this->authorize('update', Order::class);
             $input = $request->all();
             $order = $this->orderrepository->update($id, $input);

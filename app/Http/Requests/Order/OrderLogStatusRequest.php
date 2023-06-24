@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class OrderUpdateRequest extends FormRequest
+class OrderLogStatusRequest extends FormRequest
 {
 
     /**
@@ -17,7 +17,8 @@ class OrderUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-        ];
+            'order_status' => 'required'
+            ];
     }
     protected function failedValidation(Validator $validator)
     {
