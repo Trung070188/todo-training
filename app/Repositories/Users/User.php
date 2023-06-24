@@ -3,6 +3,7 @@
 namespace App\Repositories\Users;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Repositories\Orders\Order;
 use App\Repositories\Users\Enums\Roles;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -48,6 +49,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserRoles::class,'user_id');
     }
+    public function orders()
+    {
+        return $this->hasMany(Order::class,'user_id');
+    }
     public function queryUser()
     {
         $user = $this->user_roles->pluck('role_id');
@@ -91,17 +96,6 @@ class User extends Authenticatable
         return  false;
 
     }
-
-//    public function policy($role, $permission)
-//    {
-//        $roles = Config::get('role');
-//
-//        if (array_key_exists($role, $roles)) {
-//            return in_array($permission, $roles[$role]);
-//        }
-//
-//        return false;
-//    }
 
     public function policy(string $action, string $model): bool
     {

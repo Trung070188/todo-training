@@ -38,7 +38,7 @@ class BaseRepository
         $dataUpdate->save();
         return $dataUpdate;
     }
-    public function delete($id)
+    public function delete($id):bool
     {
 
        return  $this->model($id)->delete();
