@@ -8,9 +8,13 @@ use App\Http\Resources\UserResource;
 use App\Repositories\Users\User;
 use App\Repositories\Users\UserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Psr\Http\Message\ServerRequestInterface;
+use App\Lim\LimClient;
 
 
 /**
@@ -79,8 +83,19 @@ class UserController extends Controller
      * }
      *
      */
+    public static function user($token)
+    {
+        $response = Http::withHeaders(['Authorization' => $token])->get(LimClient::getUrl('api/me'));
+        if ($response->status() == 200) {
+            return $response->json();
+        }
+        return null;
+    }
     public function login(ServerRequestInterface $request)
     {
+        $token =(Cache::get('token'));
+
+        $this->user($token);
         $input = $request->getParsedBody();
         $validate = Validator::make($input, [
             'email' => 'required|email',
